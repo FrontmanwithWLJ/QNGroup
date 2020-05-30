@@ -1,16 +1,9 @@
 package com.sl.mirai.plugin
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.io.writer
-import kotlinx.coroutines.launch
-import net.mamoe.mirai.console.command.Command
-import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.console.plugins.PluginBase
 import net.mamoe.mirai.event.subscribeFriendMessages
 import net.mamoe.mirai.event.subscribeGroupMessages
 import net.mamoe.mirai.message.data.*
-import java.io.File
 import java.util.regex.Pattern
 
 
@@ -68,34 +61,39 @@ object ExamplePluginMain : PluginBase() {
                 reply("好的，主人！" + Face.baobao.toString() + "\n请稍等")
                 if (!QNGroupManager.contain(it.keepDigital())) {
                     reply("目前暂未开启此群的统计功能，请手动添加哦")
-                }else {
+                } else {
                     val target = QNGroupManager.createExcel(basePath, it.keepDigital().toLong())
                     reply(if (target) "http://39.97.127.33/" else "生成失败")
                 }
             }
             (contains("添加") and sentBy(1844977240L)) {
-                try {
-                    if (QNGroupManager.add(it.keepDigital().toLong())) {
-                        reply("添加成功")
-                    } else {
-                        reply("添加失败")
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    reply("添加失败")
-                }
+                reply(if (QNGroupManager.add(it.keepDigital().toLong())) "添加成功" else "添加失败，此群已添加")
+//                try {
+//                    if (QNGroupManager.add(it.keepDigital().toLong())) {
+//                        reply("添加成功")
+//                    } else {
+//                        reply("添加失败")
+//                    }
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    reply("添加失败")
+//                }
             }
-                (contains("删除") and sentBy(1844977240L)) {
-                try {
-                    if (QNGroupManager.del(it.keepDigital().toLong())) {
-                        reply("删除成功")
-                    } else {
-                        reply("删除失败")
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    reply("删除失败")
-                }
+            (contains("删除") and sentBy(1844977240L)) {
+                reply(if (QNGroupManager.add(it.keepDigital().toLong())) "删除成功" else "删除失败")
+//                try {
+//                    if (QNGroupManager.del(it.keepDigital().toLong())) {
+//                        reply("删除成功")
+//                    } else {
+//                        reply("删除失败")
+//                    }
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    reply("删除失败")
+//                }
+            }
+            contains("帮助"){
+                reply("添加群进入统计列表 eg: 添加 [群号]\n从统计列表删除群 eg: 删除 [群号]\n生成指定群的统计表格 eg: 表格 [群号]")
             }
         }
     }
@@ -103,7 +101,7 @@ object ExamplePluginMain : PluginBase() {
     override fun onDisable() {
         println("关闭...")
         //保存群列表
-        QNGroupManager.onDisable()
+        QNGroupManager.save()
         super.onDisable()
     }
 

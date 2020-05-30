@@ -2,6 +2,7 @@ package com.sl.mirai.plugin
 
 
 import net.mamoe.mirai.console.plugins.Config
+import net.mamoe.mirai.console.plugins.ToBeRemoved
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -39,7 +40,7 @@ object QNGroupManager {
     }
 
     fun contain(id:String):Boolean{
-        var tmp:Long = 0L
+        var tmp = 0L
         try {
             tmp = id.toLong()
         }catch (e:Exception){
@@ -62,8 +63,10 @@ object QNGroupManager {
     }
 
     //插件停止运行前调用
-    fun onDisable(){
+    @OptIn(ToBeRemoved::class)
+    fun save(){
         config["group"] = list
+        config.save()
     }
 
     //获取本周周一日期
