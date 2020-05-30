@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cqupt.sl.Robot">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/cqupt.sl.Robot.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
