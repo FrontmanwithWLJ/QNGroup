@@ -18,7 +18,8 @@ object DataManager {
             if (!path.exists()) {
                 path.mkdirs()
             }
-            val file = File(pathStr + "\\" + name)
+            val file = File(pathStr + OSUtil.pathBreak + name)
+            file.setWritable(true)
             file.delete()
             file.createNewFile()
             workbook = Workbook.createWorkbook(file)
@@ -67,13 +68,13 @@ object DataManager {
             val path = File(pathStr)
             println("path:$pathStr")
             if (path.exists()) {
-                val record = File(pathStr + "\\" + recordFileName)
+                val record = File(pathStr + OSUtil.pathBreak + recordFileName)
                 println("file:$recordFileName")
                 if (!record.exists()) {
                     var12 = false
                     return var12
                 }
-                val baseData = File(path.parent + "\\" + dataFileName)
+                val baseData = File(path.parent + OSUtil.pathBreak + dataFileName)
                 println("data:" + path.parent)
                 if (!baseData.exists()) {
                     var12 = false

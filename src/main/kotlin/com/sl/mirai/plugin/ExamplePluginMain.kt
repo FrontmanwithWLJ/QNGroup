@@ -44,28 +44,32 @@ object ExamplePluginMain : PluginBase() {
     }
 
     override fun onEnable() {
-        println("hello")
         super.onEnable()
         subscribeGroupMessages {
             (has<Image>() and (contains("青年") or contains("大学习"))) {
-                //条件 青年大学习+一张图片
-                //println("get picture")
-                QNGroupManager.record(basePath, group.id, senderName)
+                if (QNGroupManager.contain(group.id)) {
+                    //条件 青年大学习+一张图片
+                    //println("get picture")
+                    QNGroupManager.record(basePath, group.id, senderName)
 //                FileUtil.write(basePath+"/"+group.id,"/${}/learnRecord.txt",senderName+"\n",true)
-                reply(sender.at() + "已收到青年大学习截图")
+                    reply(sender.at() + "已收到青年大学习截图")
+                }
             }
         }
 
+        //todo 表情还是数字，后面再去查文档
         subscribeFriendMessages {
             (contains("表格") and sentBy(1844977240L)) {
                 reply("好的，主人！" + Face.baobao.toString() + "\n请稍等")
                 if (!QNGroupManager.contain(it.keepDigital())) {
                     reply("目前暂未开启此群的统计功能，请手动添加哦")
                 } else {
-                    val target = QNGroupManager.createExcel(basePath, it.keepDigital().toLong())
-                    reply(if (target) "http://39.97.127.33/" else "生成失败")
+                    val groupId = it.keepDigital().toLong()
+                    val target = QNGroupManager.createExcel(basePath, groupId)
+                    reply(if (target) "http://39.97.127.33:1999/$groupId/${QNGroupManager.getWeekBeginDate()}/book.xls" else "生成失败")
                 }
             }
+
             (contains("添加") and sentBy(1844977240L)) {
                 reply(if (QNGroupManager.add(it.keepDigital().toLong())) "添加成功" else "添加失败，此群已添加")
 //                try {
@@ -80,7 +84,7 @@ object ExamplePluginMain : PluginBase() {
 //                }
             }
             (contains("删除") and sentBy(1844977240L)) {
-                reply(if (QNGroupManager.add(it.keepDigital().toLong())) "删除成功" else "删除失败")
+                reply(if (QNGroupManager.del(it.keepDigital().toLong())) "删除成功" else "删除失败,未添加此群")
 //                try {
 //                    if (QNGroupManager.del(it.keepDigital().toLong())) {
 //                        reply("删除成功")
@@ -99,7 +103,6 @@ object ExamplePluginMain : PluginBase() {
     }
 
     override fun onDisable() {
-        println("关闭...")
         //保存群列表
         QNGroupManager.save()
         super.onDisable()

@@ -12,7 +12,7 @@ object RunMirai {
     @JvmStatic
     fun main(args: Array<String>) {
         // 默认在 /test 目录下运行
-        QNGroupManager.createExcel("C:\\Users\\18449\\IdeaProjects\\QNGroup\\test\\plugins\\QNGroup",817255681L)
+//        QNGroupManager.createExcel("C:\\Users\\18449\\IdeaProjects\\QNGroup\\test\\plugins\\QNGroup",817255681L)
         MiraiConsolePureLoader.load(args[0], args[1]) // 启动 console
         runBlocking { CommandManager.join() } // 阻止主线程退出
     }
