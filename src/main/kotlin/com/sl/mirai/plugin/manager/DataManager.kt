@@ -1,5 +1,7 @@
-package com.sl.mirai.plugin
+package com.sl.mirai.plugin.manager
 
+import com.sl.mirai.plugin.bean.MemberInfo
+import com.sl.mirai.plugin.util.OSUtil
 import jxl.Workbook
 import jxl.write.Label
 import jxl.write.WritableSheet
@@ -93,7 +95,10 @@ object DataManager {
                     memberName = bufferedReader.readLine()
                     if (memberName == null)break
                     if (memberName != "" && memberName != "\r\n") {
-                        memberInfoTmp = getMemberInfo(memberName, baseData)
+                        memberInfoTmp = getMemberInfo(
+                            memberName,
+                            baseData
+                        )
                     }
                     if (memberInfoTmp != null) {
                         println("开始写入表格")

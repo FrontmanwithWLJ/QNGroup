@@ -1,6 +1,6 @@
 package mirai
 
-import com.sl.mirai.plugin.QNGroupManager
+import com.sl.mirai.plugin.manager.QNGroupManager
 
 object TestDataManager {
     fun main(args:Array<String>){

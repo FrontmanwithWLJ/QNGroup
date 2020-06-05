@@ -1,5 +1,7 @@
 package com.sl.mirai.plugin
 
+import com.sl.mirai.plugin.manager.QNGroupManager
+import com.sl.mirai.plugin.util.Config
 import net.mamoe.mirai.console.plugins.PluginBase
 import net.mamoe.mirai.event.subscribeFriendMessages
 import net.mamoe.mirai.event.subscribeGroupMessages
@@ -32,10 +34,10 @@ object ExamplePluginMain : PluginBase() {
 //        usage = "dg [QQ GroupID]"
 //    }
 
-    private val config = loadConfig("config.json")
 
     //用于放每个群的统计数据
     private val basePath = dataFolder.absolutePath
+    private val config = Config(basePath,"groupList.txt")
 
     override fun onLoad() {
         super.onLoad()
@@ -134,12 +136,13 @@ object ExamplePluginMain : PluginBase() {
 //        }
 //    }
 
-    private fun String.keepDigital(): String {
+    fun String.keepDigital(): String {
         val newString = StringBuffer()
         val matcher = Pattern.compile("\\d").matcher(this)
         while (matcher.find()) {
             newString.append(matcher.group())
         }
+        if (newString.isEmpty())newString.append(0)
         return newString.toString()
     }
 }

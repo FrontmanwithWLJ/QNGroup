@@ -1,4 +1,4 @@
-package com.sl.mirai.plugin
+package com.sl.mirai.plugin.util
 
 object OSUtil {
     //判断当前系统

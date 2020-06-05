@@ -26,7 +26,7 @@ dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly("net.mamoe:mirai-core:$miraiCoreVersion")
     compileOnly("net.mamoe:mirai-console:$miraiConsoleVersion")
-//    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson:2.8.5")
 
     implementation("net.sourceforge.jexcelapi:jxl:2.6.12")
     testImplementation(kotlin("stdlib-jdk8"))

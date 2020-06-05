@@ -1,6 +1,5 @@
 package mirai
 
-import com.sl.mirai.plugin.QNGroupManager
 import kotlinx.coroutines.runBlocking
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.pure.MiraiConsolePureLoader

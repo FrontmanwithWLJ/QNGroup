@@ -1,4 +1,4 @@
-package com.sl.mirai.plugin
+package com.sl.mirai.plugin.util
 
 import java.io.File
 import java.io.FileOutputStream
@@ -24,7 +24,7 @@ object FileUtil {
                 file.createNewFile()
             }
             //写之前先判断是否已经存在
-            val t = read(pathStr,name)
+            val t = read(pathStr, name)
             if (t.contains(content))return false
             file.setWritable(true)//linux需要这句话才能写入
             writer = OutputStreamWriter(FileOutputStream(file,append))
